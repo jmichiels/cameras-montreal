@@ -1,0 +1,43 @@
+<button mat-button id="add-camera-button" routerLink="/add" queryParamsHandling="preserve">
+  <mat-icon>add</mat-icon>
+  Ajouter une caméra
+</button>
+<mat-card *ngFor="let camera of (selectedCameras$ | async); trackBy: trackCameraById; let first = first; let last = last;" class="camera-card mat-elevation-z0">
+  <img mat-card-image src="{{camera.img}}" class="camera-image"/>
+  <mat-card-content>
+    <h2>{{camera.title}}</h2>
+    <p>{{camera.borough}}</p>
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <a mat-icon-button href="{{camera.url}}" target="_blank" matTooltip="Ouvrir sur le site de la ville">
+      <mat-icon>open_in_new</mat-icon>
+    </a>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item [disabled]="first" (click)="raiseClicked(camera.id)">
+        <mat-icon>keyboard_arrow_up</mat-icon>
+        <span>Déplacer vers le haut</span>
+      </button>
+      <button mat-menu-item [disabled]="last" (click)="lowerClicked(camera.id)">
+        <mat-icon>keyboard_arrow_down</mat-icon>
+        <span>Déplacer vers le bas</span>
+      </button>
+      <button mat-menu-item (click)="removeClicked(camera.id)">
+        <mat-icon>delete</mat-icon>
+        <span>Retirer la caméra</span>
+      </button>
+    </mat-menu>
+  </mat-card-actions>
+</mat-card>
+<div id="help">
+  <p>La ville de Montréal met à la disposition du public <a href="https://ville.montreal.qc.ca/circulation/" target="_blank">ses caméras de circulation</a>. Plutôt que de cliquer une à une sur chaque caméra à chaque fois que vous voulez voir l'état des routes, cet outil vous permet de créer une sélection de plusieurs caméras et de les visionner toutes d'un coup:</p>
+  <ul>
+    <li>Cliquez sur "Ajouter une caméra" pour sélectionner les caméras qui vous intéressent. Elles apparaissent sur cette page où vous pouvez les réorganiser au besoin</li>
+    <li>Pour sauvegarder votre sélection et y revenir quand vous voulez, ajoutez la page à vos favoris ou à l'écran d'accueil de votre cellulaire.</li>
+  </ul>
+  <p>Comme la sélection est complètement définie dans l'URL de la page, vous pouvez créer plusieurs favoris pour différentes sélections.</p>
+  <p>Cet outil n'est pas affilié à la ville de Montréal, mais utilise ses <a href="https://donnees.montreal.ca/ville-de-montreal/cameras-observation-routiere#additional-info" target="_blank">donneés ouvertes</a> (<a href="https://donnees.montreal.ca/licence-d-utilisation" target="_blank">license d'utilisation</a>)</p>
+  <p>Si vous trouvez un bug, merci de <a href="https://github.com/jmichiels/cameras-montreal/issues" target="_blank">le signaler sur github!</a></p>
+</div>

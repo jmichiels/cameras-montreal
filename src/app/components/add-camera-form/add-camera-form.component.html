@@ -1,0 +1,15 @@
+<button mat-button id="cancel-button" (click)="cancelClicked()">
+  <mat-icon>close</mat-icon>
+  Annuler
+</button>
+<mat-form-field appearance="outline" id="filter-camera-field">
+  <mat-label>Recherche</mat-label>
+  <input type="text" matInput [formControl]="formControl">
+  <mat-icon matSuffix>search</mat-icon>
+  <mat-hint align="start">Commencez à taper le nom d'une rue pour chercher les caméras qui s'y trouvent (se référer à la carte disponible sur le <a href="https://ville.montreal.qc.ca/circulation/" target="_blank">site de la ville</a>).</mat-hint>
+</mat-form-field>
+<mat-action-list id="add-camera-list" *ngIf="!(filteredCamerasEmpty$ | async)">
+  <button mat-list-item *ngFor="let camera of (filteredCameras$ | async); trackBy: trackCameraById;" (click)="cameraClicked(camera.id)" [disabled]="camera.selected">
+    {{camera.title}}
+  </button>
+</mat-action-list>

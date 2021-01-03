@@ -1,0 +1,27 @@
+
+#add-camera-button {
+  width: 100%;
+  padding: 8px;
+}
+
+mat-card {
+  margin-top: 16px;
+
+  mat-card-content {
+    margin-bottom: 0;
+
+    h2 {
+      font-size: 16px;
+      line-height: 24px;
+      margin-bottom: 8px;
+    }
+  }
+}
+
+#help {
+  margin: 48px 0;
+
+  li:not(:last-child) {
+    margin-bottom: 12px;
+  }
+}
